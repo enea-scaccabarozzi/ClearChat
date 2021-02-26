@@ -39,7 +39,10 @@ int main(int argc, char *argv[])
     *       HANDSHAKE        *
     *************************/
 
-    Socket.InitHandshake();
+    if(Socket.InitHandshake() < 0){
+        cerr<<"Unable to init handshake"<<endl;
+        exit(-1);
+    }
     InitCrypt();
     //Send key to the server
     Socket.SendKey(ClientPubKey);
@@ -75,6 +78,7 @@ int main(int argc, char *argv[])
         if(Socket.Send(data)){
             break;
         }
+        cout << "Awaiting server response..." << endl;
         if(Socket.Recv(data)){ //Actual message plus server key
             cout<<"Server has closed the session"<<endl;
             break;

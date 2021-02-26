@@ -79,23 +79,23 @@ int CLR_Socket_server::Listen(){
 
 void CLR_Socket_server::SendKey(std::string &key)
 {
-    std::cout<<"Sending key..."<<std::endl;
+    //std::cout<<"Sending key..."<<std::endl;
     char msg[15000];
     memset(&msg, 0, sizeof(msg));//clear the buffer
     strcpy(msg, key.c_str());
     bytesWritten += send(clientSd, (char*)&msg, strlen(msg), 0);
-    std::cout<<"Sended key: "<<msg<<std::endl;
+    //std::cout<<"Sended key: "<<msg<<std::endl;
 }
 
 void CLR_Socket_server::RecvKey(std::string &key)
 {
-    std::cout<<"Receiving key..."<<std::endl;
+    //std::cout<<"Receiving key..."<<std::endl;
     key.clear();
     char msg[15000];
     memset(&msg, 0, sizeof(msg));//clear the buffer
     bytesRead += recv(serverSd, (char*)&msg, sizeof(msg), 0);
     key = msg;
-    std::cout<<"Recived key: "<<key << std::endl;
+    //std::cout<<"Recived key: "<<key << std::endl;
 }
 
 bool CLR_Socket_server::Recv(std::string &data){

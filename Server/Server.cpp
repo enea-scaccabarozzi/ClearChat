@@ -32,15 +32,19 @@ int main(int argc, char *argv[])
     //grab the port number
     int port = atoi(argv[1]);
 
+    cout<<"Waiting for a client to connect..."<<endl;
+    
     CLR_Socket_server Socket(port);
 
     /*************************
     *       HANDSHAKE        *
     *************************/
 
-    Socket.InitHandshake();
+    if(Socket.InitHandshake() < 0){
+        cerr<<"Unable to init handshake"<<endl;
+        exit(-1);
+    }
     InitCrypt();
-    cout<<"Public key: "<<ServerPubKey<<endl;	
     //Ricevi chiave client
     string ClientKey;
     Socket.RecvKey(ClientKey);
@@ -55,7 +59,6 @@ int main(int argc, char *argv[])
     *       AND BINDING      *
     *************************/
     if(Socket.Open() < 0){
-        cout<<Socket.Open()<<endl;
         cerr<<"Unable to open and bind the socket"<<endl;
         exit(-1);
     }
@@ -64,7 +67,6 @@ int main(int argc, char *argv[])
     *       CONNECTION       *
     *************************/
 
-    cout<<"Lisening for client's connection..."<<endl;
     if(Socket.Listen() < 0){
         cerr<<"Unable to accept incoming connection"<<endl;
         exit(-1);

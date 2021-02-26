@@ -10,7 +10,7 @@ int InitCrypt(){
 
     SaveHexPrivateKey(ServerPriKey, privateKey);
 	SaveHexPublicKey(ServerPubKey, publicKey);
-    cout<<"Public key: "<<ServerPubKey<<endl;	
+    //cout<<"Public key: "<<ServerPubKey<<endl;	
     return 0;
 }
 
@@ -19,7 +19,7 @@ int PrepareString(string &str, string Pub_key)
     if(str == "exit"){
         return 0;
     }
-    cout<<ServerPubKey<<endl;
+    //cout<<ServerPubKey<<endl;
     CryptString(str, Pub_key);
     str += "#" + ServerPubKey;
     return 0;
@@ -27,13 +27,13 @@ int PrepareString(string &str, string Pub_key)
 
 int ExtractKey(string &str, string &Pub_key)
 {
-    cout<<"Extracting key..."<<endl;
+    //cout<<"Extracting key..."<<endl;
     for(int i=0; i<str.size(); i++){
         if(str[i] == '#'){
             Pub_key = str.substr(i+1);
             str = str.substr(0, i);
-            cout<<"Data: "<<str<<endl;
-            cout<<"Key: "<<Pub_key<<endl;
+            //cout<<"Data: "<<str<<endl;
+            //cout<<"Key: "<<Pub_key<<endl;
         }
     }  
     return 0; 
